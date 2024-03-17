@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,17 +10,32 @@ public class Main {
         List<Entry> testDataSet = new ArrayList<>();
 
         //trainingSet
-        readTheFile(trainingDataSet,"wdbc.data");
+        readTheFile(trainingDataSet,args[0]);
 
         //testSet
-        readTheFile(testDataSet,"wdbc.test.data");
+        readTheFile(testDataSet,args[1]);
 
 
 
-        Classifier classifier = new Classifier(trainingDataSet, testDataSet,5);
+        Classifier classifier = new Classifier(trainingDataSet, testDataSet,args[2]);
         classifier.train();
 
-        classifier.checkNew();
+        Scanner scanner = new Scanner(System.in);
+        int action;
+        do {
+            System.out.println("enter your features to check the prediction");
+            String read = scanner.next();
+            String[] featuresAsString = read.split(",");
+            float[] features = new float[featuresAsString.length];
+            for (int i = 0; i < featuresAsString.length; i++) {
+                features[i] = Float.parseFloat(featuresAsString[i]);
+            }
+            Entry entry = new Entry(features, null);
+            classifier.checkNew(entry);
+            System.out.println("do you want to exit? if yes, press 1");
+            System.out.println("or any other number to keep working");
+            action = scanner.nextInt();
+        }while (action!=1);
     }
 
     public static void readTheFile(List<Entry> dataSet, String filename)
