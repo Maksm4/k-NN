@@ -8,7 +8,6 @@ public class Main {
         List<Entry> trainingDataSet = new ArrayList<>();
         List<Entry> testDataSet = new ArrayList<>();
 
-
         //trainingSet
         readTheFile(trainingDataSet,"iris.data");
 
@@ -17,8 +16,10 @@ public class Main {
 
 
 
-        Classifier classifier = new Classifier(trainingDataSet,3);
+        Classifier classifier = new Classifier(trainingDataSet, testDataSet,111);
+        classifier.train();
 
+        classifier.checkNew();
     }
 
     public static void readTheFile(List<Entry> dataSet, String filename)
