@@ -9,14 +9,14 @@ public class Main {
         List<Entry> testDataSet = new ArrayList<>();
 
         //trainingSet
-        readTheFile(trainingDataSet,"iris.data");
+        readTheFile(trainingDataSet,"wdbc.data");
 
         //testSet
-        readTheFile(testDataSet,"iris.test.data");
+        readTheFile(testDataSet,"wdbc.test.data");
 
 
 
-        Classifier classifier = new Classifier(trainingDataSet, testDataSet,111);
+        Classifier classifier = new Classifier(trainingDataSet, testDataSet,5);
         classifier.train();
 
         classifier.checkNew();
