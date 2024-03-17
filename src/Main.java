@@ -16,8 +16,20 @@ public class Main {
         readTheFile(testDataSet,args[1]);
 
 
+        //to generate data for excel plot
+        for (int i = 0; i <= 100; i++) {
+            Classifier classifier = new Classifier(trainingDataSet, testDataSet,i);
+            double accuracy = classifier.train();
+            try {
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/k-parameter.csv",true)));
+                writer.write(i + "," + accuracy+"\n");
+                writer.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
-        Classifier classifier = new Classifier(trainingDataSet, testDataSet,args[2]);
+        Classifier classifier = new Classifier(trainingDataSet, testDataSet,3);
         classifier.train();
 
         Scanner scanner = new Scanner(System.in);

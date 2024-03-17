@@ -9,14 +9,14 @@ public class Classifier {
     private int dimension;
     double accuracyCount = 0;
 
-    public Classifier(List<Entry> trainingDataSet, List<Entry> testDataSet, String k) {
+    public Classifier(List<Entry> trainingDataSet, List<Entry> testDataSet, int k) {
         this.trainingDataSet = trainingDataSet;
         this.testDataSet = testDataSet;
         this.dimension = trainingDataSet.get(0).getFeatures().length;
-        this.k = Math.min(Integer.parseInt(k), trainingDataSet.size());
+        this.k = Math.min(k, trainingDataSet.size());
     }
 
-    public void train()
+    public double train()
     {
         for (int i = 0; i < testDataSet.size(); i++) {
             List<Tuple> distance_label = new ArrayList<>();
@@ -50,6 +50,7 @@ public class Classifier {
         }
 
         System.out.println((accuracyCount/ testDataSet.size()));
+        return (accuracyCount/ testDataSet.size());
     }
 
 
